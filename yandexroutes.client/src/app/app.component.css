@@ -1,14 +1,42 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+button {
+  margin: 20px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-table {
-    margin: 0 auto;
+.vehicles-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
+
+  .vehicles-table th,
+  .vehicles-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .vehicles-table tr {
+    cursor: pointer;
+  }
+
+    .vehicles-table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+.route-display {
+  margin-top: 20px;
+}
+
+  .route-display ul {
+    list-style-type: none;
+    padding: 0;
+  }

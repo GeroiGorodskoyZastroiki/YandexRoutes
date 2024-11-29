@@ -1,24 +1,25 @@
-﻿<h1 id="tableLabel">Weather forecast</h1>
+<div class="container">
+  <button (click)="loadVehicles()" class="btn btn-primary">Загрузить транспорт</button>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="forecasts">
+  <table *ngIf="vehicles.length > 0" class="table table-striped mt-3">
     <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Название</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
+      <tr *ngFor="let vehicle of vehicles" (click)="loadRoutes(vehicle.id)">
+        <td>{{ vehicle.id }}</td>
+        <td>{{ vehicle.name }}</td>
+      </tr>
     </tbody>
-</table>
+  </table>
+
+  <div *ngIf="routes.length > 0" class="routes">
+    <h3>Маршрут</h3>
+    <ul>
+      <li *ngFor="let point of routes">{{ point }}</li>
+    </ul>
+  </div>
+</div>

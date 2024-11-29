@@ -8,7 +8,6 @@ namespace YandexRoutes.Server.Models
     {
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Route> Routes { get; set; }
-        public DbSet<Source> Sources { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -18,8 +17,8 @@ namespace YandexRoutes.Server.Models
             modelBuilder.Entity<Route>()
                 .Property(r => r.Points)
                 .HasConversion(
-                    points => JsonConvert.SerializeObject(points), // Сериализация в строку JSON
-                    points => JsonConvert.DeserializeObject<List<string>>(points)); // Десериализация из строки JSON
+                    points => JsonConvert.SerializeObject(points),
+                    points => JsonConvert.DeserializeObject<List<string>>(points));
         }
     }
 }

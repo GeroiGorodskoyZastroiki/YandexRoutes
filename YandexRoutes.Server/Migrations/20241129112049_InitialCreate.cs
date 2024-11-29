@@ -10,10 +10,10 @@ namespace YandexRoutes.Server.Migrations
                 name: "Routes",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleId = table.Column<long>(type: "bigint", nullable: false),
-                    Points = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    Points = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -21,25 +21,11 @@ namespace YandexRoutes.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sources",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ResponseId = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sources", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,9 +37,6 @@ namespace YandexRoutes.Server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Routes");
-
-            migrationBuilder.DropTable(
-                name: "Sources");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

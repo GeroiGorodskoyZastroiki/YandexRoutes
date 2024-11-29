@@ -8,7 +8,7 @@ using YandexRoutes.Server.Models;
 namespace YandexRoutes.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class TransportController : ControllerBase
     {
         private readonly DatabaseService _dbService;
@@ -21,18 +21,16 @@ namespace YandexRoutes.Server.Controllers
         [HttpGet("vehicles")]
         public async Task<IActionResult> GetVehicles()
         {
-            var context = _dbService.GetDbContext();
-            var vehicles = await context.Vehicles.ToListAsync();
+            var vehicles = await _dbService.Context.Vehicles.ToListAsync();
             return Ok(vehicles);
         }
 
         [HttpGet("routes/{vehicleId}")]
-        public async Task<IActionResult> GetRoutes(uint vehicleId)
+        public async Task<IActionResult> GetRoutes(int vehicleId)
         {
-            var context = _dbService.GetDbContext();
-            var routes = await context.Routes
+            var routes = await _dbService.Context.Routes
                 .Where(r => r.VehicleId == vehicleId)
-                .Select(r => new { r.VehicleId, r.Points })
+                .Select(r => r.Points )
                 .ToListAsync();
 
             return Ok(routes);

@@ -9,7 +9,7 @@ using YandexRoutes.Server.Models;
 namespace YandexRoutes.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241129092144_InitialCreate")]
+    [Migration("20241129112049_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,46 +22,32 @@ namespace YandexRoutes.Server.Migrations
 
             modelBuilder.Entity("YandexRoutes.Server.Models.Route", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Points")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("VehicleId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Routes");
                 });
 
-            modelBuilder.Entity("YandexRoutes.Server.Models.Source", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ResponseId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sources");
-                });
-
             modelBuilder.Entity("YandexRoutes.Server.Models.Vehicle", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 

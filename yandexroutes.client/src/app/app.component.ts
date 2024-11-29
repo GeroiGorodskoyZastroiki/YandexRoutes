@@ -1,37 +1,29 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Component } from '@angular/core';
+import { TransportService } from './transport.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
 
-  constructor(private http: HttpClient) {}
+export class AppComponent {
+  vehicles: any[] = [];
+  routes: string[] = [];
 
-  ngOnInit() {
-    this.getForecasts();
+  constructor(private transportService: TransportService) { }
+
+  loadVehicles() {
+    this.transportService.getVehicles().subscribe({
+      next: (data) => (this.vehicles = data),
+      error: (err) => console.error('Ошибка загрузки транспорта:', err),
+    });
   }
 
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  loadRoutes(vehicleId: number) {
+    this.transportService.getRoutes(vehicleId).subscribe({
+      next: (data) => (this.routes = data[0]),
+      error: (err) => console.error('Ошибка загрузки маршрута:', err),
+    });
   }
-
-  title = 'yandexroutes.client';
 }
